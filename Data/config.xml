@@ -1,7 +1,7 @@
 <config>
   <!-- The window dimensions, when in fullscreen set this to your screen resolution -->
-  <windowHeight>768</windowHeight>
-  <windowWidth>1024</windowWidth>
+  <windowHeight>720</windowHeight>
+  <windowWidth>1280</windowWidth>
 
   <!-- Display the game in a window or fullscreen -->
   <fullscreen>false</fullscreen>
