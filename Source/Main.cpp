@@ -11,7 +11,7 @@
 int main(int argc, char **argv)
 {
     CTTTGame theGame;
-    theGame.Init();
+    theGame.Init(kGameLocationLevel);
     int returnCode = theGame.Run();
     theGame.Cleanup();
     

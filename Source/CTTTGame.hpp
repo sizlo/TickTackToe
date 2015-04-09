@@ -11,9 +11,17 @@
 
 #include "CGame.hpp"
 
+enum ETTTGameLocation
+{
+    kGameLocationLevel = kGameLocationDummy + 1
+};
+
 class CTTTGame : public CGame
 {
-    
+public:
+    // Go to a game location
+    virtual void GoToLocation(int theLocation,
+                              std::string filename = std::string());
 };
 
 #endif /* defined(__TickTackToe__CTTTGame__) */

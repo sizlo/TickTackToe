@@ -11,6 +11,7 @@
 		2207D2B41AD5A76400A7D8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2207D2B31AD5A76400A7D8AC /* Foundation.framework */; };
 		2207D2B81AD5A80B00A7D8AC /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2B61AD5A80B00A7D8AC /* config.xml */; };
 		2207D2B91AD5A80B00A7D8AC /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2B71AD5A80B00A7D8AC /* sansation.ttf */; };
+		2207D2BF1AD5FE8900A7D8AC /* CLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D2BD1AD5FE8900A7D8AC /* CLevel.cpp */; };
 		223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB18D1AD587940084D6A3 /* CTTTGame.cpp */; };
 		223AB1941AD588C90084D6A3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB1921AD588C90084D6A3 /* Main.cpp */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,8 @@
 		2207D2B31AD5A76400A7D8AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2207D2B61AD5A80B00A7D8AC /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = config.xml; path = Data/config.xml; sourceTree = SOURCE_ROOT; };
 		2207D2B71AD5A80B00A7D8AC /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = sansation.ttf; path = Data/sansation.ttf; sourceTree = SOURCE_ROOT; };
+		2207D2BD1AD5FE8900A7D8AC /* CLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CLevel.cpp; path = Source/CLevel.cpp; sourceTree = SOURCE_ROOT; };
+		2207D2BE1AD5FE8900A7D8AC /* CLevel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CLevel.hpp; path = Source/CLevel.hpp; sourceTree = SOURCE_ROOT; };
 		223AB1471AD5863C0084D6A3 /* TickTackToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TickTackToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		223AB17F1AD586FD0084D6A3 /* TimGameLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TimGameLib.xcodeproj; path = ../TimGameLib/TimGameLib.xcodeproj; sourceTree = "<group>"; };
 		223AB18D1AD587940084D6A3 /* CTTTGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CTTTGame.cpp; path = Source/CTTTGame.cpp; sourceTree = SOURCE_ROOT; };
@@ -113,6 +116,8 @@
 		223AB17E1AD586830084D6A3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2207D2BD1AD5FE8900A7D8AC /* CLevel.cpp */,
+				2207D2BE1AD5FE8900A7D8AC /* CLevel.hpp */,
 				2207D2B11AD59A3700A7D8AC /* TickTackToe-Prefix.pch */,
 				223AB18D1AD587940084D6A3 /* CTTTGame.cpp */,
 				223AB18E1AD587940084D6A3 /* CTTTGame.hpp */,
@@ -218,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2207D2BF1AD5FE8900A7D8AC /* CLevel.cpp in Sources */,
 				223AB1941AD588C90084D6A3 /* Main.cpp in Sources */,
 				223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */,
 			);
