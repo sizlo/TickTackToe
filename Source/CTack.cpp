@@ -27,15 +27,20 @@ CTack::~CTack()
 
 void CTack::Update(CTime elapsedTime)
 {
+    CVector2f originalDirection = CVector2f(1.0f, 0.0f);
+    
     switch (mState)
     {
         case kInTicksHand:
             break;
             
         case kFlying:
-            // Adjust velocity for gravity
+            // Adjust velocity for gravity and move
             mVelocity += (CVector2f(0.0f, 10.0f) * elapsedTime.asSeconds());
             mSprite.move(mVelocity * elapsedTime.asSeconds());
+            
+            // Adjust sprite rotation based on velocity
+            mSprite.setRotation(originalDirection.AngleTo(mVelocity));
             break;
             
         case kInFoot:
