@@ -9,6 +9,11 @@
 #include "CTTTGame.hpp"
 #include "CLevel.hpp"
 
+CTTTGame * CTTTGame::Get()
+{
+    return static_cast<CTTTGame *>(CGame::Get());
+}
+
 CTTTGame::CTTTGame()
 :   CGame("Tick Tack Toe")
 {
@@ -39,4 +44,16 @@ void CTTTGame::GoToLocation(int theLocation,
     }
     
     mCurrentLocation->Enter();
+}
+
+CLevel * CTTTGame::GetLevel()
+{
+    CLevel *result = NULL;
+    
+    if (HasAllGameStates(kGameStateInGame))
+    {
+        result = static_cast<CLevel *>(mCurrentLocation);
+    }
+    
+    return result;
 }

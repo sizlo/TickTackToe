@@ -10,6 +10,7 @@
 #define __TickTackToe__CTTTGame__
 
 #include "CGame.hpp"
+#include "CLevel.hpp"
 
 enum ETTTGameLocation
 {
@@ -19,11 +20,15 @@ enum ETTTGameLocation
 class CTTTGame : public CGame
 {
 public:
+    static CTTTGame * Get();
+    
     CTTTGame();
     
     // Go to a game location
     virtual void GoToLocation(int theLocation,
                               std::string filename = std::string());
+    
+    CLevel * GetLevel();
 };
 
 #endif /* defined(__TickTackToe__CTTTGame__) */
