@@ -36,7 +36,7 @@ void CTack::Update(CTime elapsedTime)
             
         case kFlying:
             // Adjust velocity for gravity and move
-            mVelocity += (CVector2f(0.0f, 10.0f) * elapsedTime.asSeconds());
+            mVelocity += (CVector2f(0.0f, 250.0f) * elapsedTime.asSeconds());
             mSprite.move(mVelocity * elapsedTime.asSeconds());
             
             // Adjust sprite rotation based on velocity
@@ -53,9 +53,9 @@ void CTack::Draw(CWindow *theWindow)
     theWindow->DrawSprite(mSprite);
 }
 
-void CTack::Throw()
+void CTack::Throw(CVector2f aimVector)
 {
-    mVelocity = CVector2f(50.0f, -50.0f);
+    mVelocity = aimVector;
     mState = kFlying;
     CTTTGame::Get()->GetLevel()->AddTack(this);
 }

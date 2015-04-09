@@ -28,7 +28,7 @@ public:
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
     
-    void Throw();
+    void Throw(CVector2f aimVector);
     void SetPosition(CVector2f thePosition);
     
     bool IsInFoot();

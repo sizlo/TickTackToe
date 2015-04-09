@@ -38,7 +38,7 @@ private:
     CTime       mTackCooldown;
     
     void AquireTack();
-    void ThrowTack();
+    void ThrowTack(CVector2f aimVector);
 };
 
 #endif /* defined(__TickTackToe__CTick__) */

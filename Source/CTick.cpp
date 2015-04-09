@@ -58,9 +58,15 @@ void CTick::Draw(CWindow *theWindow)
 
 void CTick::ReactToEvent(CEvent *theEvent)
 {
-    if (theEvent->type == CEvent::MouseButtonPressed)
+    if (theEvent->IsExtra()
+        && theEvent->extraType == CEvent::MouseDrag
+        && theEvent->mouseDrag.button == CMouse::Left
+        && mState == kHasTack)
     {
-        ThrowTack();
+        CVector2f start = theEvent->mouseDrag.pressLocation;
+        CVector2f finish = theEvent->mouseDrag.releaseLocation;
+        CVector2f startToFinish = finish - start;
+        ThrowTack(startToFinish);
     }
 }
 
@@ -71,9 +77,9 @@ void CTick::AquireTack()
     mState = kHasTack;
 }
 
-void CTick::ThrowTack()
+void CTick::ThrowTack(CVector2f aimVector)
 {
-    mTack->Throw();
+    mTack->Throw(aimVector);
     mTack = NULL;
     
     mTackCooldown = CTime::Seconds(3.0f);
