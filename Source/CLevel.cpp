@@ -17,30 +17,61 @@ CLevel::CLevel()
 
 CLevel::~CLevel()
 {
-    
+    while (!mTacks.empty())
+    {
+        CTack *removed = mTacks.front();
+        mTacks.pop_front();
+        SAFE_DELETE(removed);
+    }
 }
 
 void CLevel::Enter()
 {
     CTTTGame::Get()->RegisterRenderable(this);
     CTTTGame::Get()->RegisterUpdateable(this);
+    
+    CTTTGame::Get()->SetGameState(kGameStateInGame);
 }
 
 void CLevel::Exit()
 {
     CTTTGame::Get()->UnregisterRenderable(this);
     CTTTGame::Get()->UnregisterUpdateable(this);
+    
+    CTTTGame::Get()->UnsetGameState(kGameStateInGame);
 }
 
 void CLevel::Update(CTime elapsedTime)
 {
+    mTick.Update(elapsedTime);
     
+    std::list<CTack *> tacksToRemove;
+    for(CTack *tack: mTacks)
+    {
+        tack->Update(elapsedTime);
+        if (tack->IsInFoot() || tack->IsOutOfBounds())
+        {
+            tacksToRemove.push_back(tack);
+        }
+        
+    }
+    for(CTack *tack: tacksToRemove)
+    {
+        mTacks.remove(tack);
+        SAFE_DELETE(tack);
+    }
 }
 
 void CLevel::Draw(CWindow *theWindow)
 {
-    CCircleShape circle(20.0f);
-    circle.setPosition(300.0f, 300.0f);
-    circle.setFillColor(CColour::Red);
-    theWindow->DrawShape(circle);
+    mTick.Draw(theWindow);
+    for(CTack *tack: mTacks)
+    {
+        tack->Draw(theWindow);
+    }
+}
+
+void CLevel::AddTack(CTack *theTack)
+{
+    mTacks.push_back(theTack);
 }
