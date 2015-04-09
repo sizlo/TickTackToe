@@ -9,6 +9,12 @@
 #include "CTTTGame.hpp"
 #include "CLevel.hpp"
 
+CTTTGame::CTTTGame()
+:   CGame("Tick Tack Toe")
+{
+    mClearColour = CColour::White;
+}
+
 void CTTTGame::GoToLocation(int theLocation,
                             std::string filename /* = std::string() */)
 {

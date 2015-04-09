@@ -19,6 +19,8 @@ enum ETTTGameLocation
 class CTTTGame : public CGame
 {
 public:
+    CTTTGame();
+    
     // Go to a game location
     virtual void GoToLocation(int theLocation,
                               std::string filename = std::string());
