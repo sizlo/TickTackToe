@@ -11,6 +11,9 @@
 
 CTick::CTick()
 {
+    // Listen to events
+    SystemUtilities::SubscribeToEvents(this);
+    
     mSprite = CSprite("Tick.png");
     mSprite.setOrigin(256.0f, 256.0f);
     mSprite.setScale(0.25f, 0.25f);
@@ -31,14 +34,7 @@ void CTick::Update(CTime elapsedTime)
     switch (mState)
     {
         case kHasTack:
-            if (SystemUtilities::WasButtonPressedThisCycle(CMouse::Left, &p))
-            {
-                ThrowTack();
-            }
-            else
-            {
-                mTack->Update(elapsedTime);
-            }
+            mTack->Update(elapsedTime);
             break;
             
         case kWaitingForTack:
@@ -57,6 +53,14 @@ void CTick::Draw(CWindow *theWindow)
     if (mState == kHasTack)
     {
         mTack->Draw(theWindow);
+    }
+}
+
+void CTick::ReactToEvent(CEvent *theEvent)
+{
+    if (theEvent->type == CEvent::MouseButtonPressed)
+    {
+        ThrowTack();
     }
 }
 

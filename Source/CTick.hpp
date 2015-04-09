@@ -11,6 +11,7 @@
 
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
+#include "CEventListener.hpp"
 #include "CTack.hpp"
 
 enum ETickState
@@ -19,7 +20,7 @@ enum ETickState
     kWaitingForTack
 };
 
-class CTick : public CUpdateable, public CRenderable
+class CTick : public CUpdateable, public CRenderable, public CEventListener
 {
 public:
     CTick();
@@ -27,6 +28,8 @@ public:
     
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
+    
+    void ReactToEvent(CEvent *theEvent);
     
 private:
     CSprite     mSprite;
