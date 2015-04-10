@@ -10,6 +10,7 @@
 #include "SystemUtilities.hpp"
 
 CTick::CTick()
+: mTack(NULL)
 {
     // Listen to events
     SystemUtilities::SubscribeToEvents(this);
@@ -18,13 +19,19 @@ CTick::CTick()
     mSprite.setOrigin(256.0f, 256.0f);
     mSprite.setScale(0.25f, 0.25f);
     mSprite.setPosition(100.0f, GameOptions::viewHeight - 100.0f);
-    
-    AquireTack();
 }
 
 CTick::~CTick()
 {
+    SystemUtilities::UnsubscribeToEvents(this);
     SAFE_DELETE(mTack);
+}
+
+void CTick::Init()
+{
+    mSprite.setRotation(0.0f);
+    SAFE_DELETE(mTack);
+    AquireTack();
 }
 
 void CTick::Update(CTime elapsedTime)

@@ -15,7 +15,10 @@
 #include "CTick.hpp"
 #include "CToe.hpp"
 
-class CLevel : public CGameLocation, public CUpdateable, public CRenderable
+class CLevel :  public CGameLocation,
+                public CUpdateable,
+                public CRenderable,
+                public CEventListener
 {
 public:
     CLevel();
@@ -26,6 +29,7 @@ public:
     
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
+    void ReactToEvent(CEvent *theEvent);
     
     void AddTack(CTack *theTack);
     
@@ -38,6 +42,8 @@ private:
     
     CTime               mToeSpawnCooldown;
     
+    void StartLevel();
+    void DeleteEntities();
     void SpawnToe();
     void HandleCollisions();
     void DrawHitbox(CConvexShape theHitbox, CWindow *theWindow);

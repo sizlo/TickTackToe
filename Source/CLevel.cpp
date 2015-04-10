@@ -9,6 +9,7 @@
 #include "CLevel.hpp"
 #include "CTTTGame.hpp"
 #include "DebugOptions.hpp"
+#include "SystemUtilities.hpp"
 
 CLevel::CLevel()
 {
@@ -17,19 +18,7 @@ CLevel::CLevel()
 
 CLevel::~CLevel()
 {
-    while (!mTacks.empty())
-    {
-        CTack *removed = mTacks.front();
-        mTacks.pop_front();
-        SAFE_DELETE(removed);
-    }
-    
-    while (!mToes.empty())
-    {
-        CToe *removed = mToes.front();
-        mToes.pop_front();
-        SAFE_DELETE(removed);
-    }
+    DeleteEntities();
 }
 
 void CLevel::Enter()
@@ -39,7 +28,9 @@ void CLevel::Enter()
     
     CTTTGame::Get()->SetGameState(kGameStateInGame);
     
-    SpawnToe();
+    SystemUtilities::SubscribeToEvents(this);
+    
+    StartLevel();
 }
 
 void CLevel::Exit()
@@ -48,6 +39,8 @@ void CLevel::Exit()
     CTTTGame::Get()->UnregisterUpdateable(this);
     
     CTTTGame::Get()->UnsetGameState(kGameStateInGame);
+    
+    SystemUtilities::UnsubscribeToEvents(this);
 }
 
 void CLevel::Update(CTime elapsedTime)
@@ -124,6 +117,17 @@ void CLevel::Draw(CWindow *theWindow)
 #endif
 }
 
+void CLevel::ReactToEvent(CEvent *theEvent)
+{
+    if (theEvent->type == CEvent::KeyPressed)
+    {
+        if (theEvent->key.code == CKeyboard::R)
+        {
+            StartLevel();
+        }
+    }
+}
+
 void CLevel::AddTack(CTack *theTack)
 {
     mTacks.push_back(theTack);
@@ -132,6 +136,30 @@ void CLevel::AddTack(CTack *theTack)
 CVector2f CLevel::GetTickPosition()
 {
     return mTick.GetPosition();
+}
+
+void CLevel::StartLevel()
+{
+    mTick.Init();
+    DeleteEntities();
+    SpawnToe();
+}
+
+void CLevel::DeleteEntities()
+{
+    while (!mTacks.empty())
+    {
+        CTack *removed = mTacks.front();
+        mTacks.pop_front();
+        SAFE_DELETE(removed);
+    }
+    
+    while (!mToes.empty())
+    {
+        CToe *removed = mToes.front();
+        mToes.pop_front();
+        SAFE_DELETE(removed);
+    }
 }
 
 void CLevel::SpawnToe()

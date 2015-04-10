@@ -27,6 +27,8 @@ public:
     CTick();
     ~CTick();
     
+    void Init();
+    
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
     
