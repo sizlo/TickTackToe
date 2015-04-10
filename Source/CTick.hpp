@@ -31,6 +31,8 @@ public:
     
     void ReactToEvent(CEvent *theEvent);
     
+    CVector2f GetPosition();
+    
 private:
     CSprite     mSprite;
     CTack       *mTack;

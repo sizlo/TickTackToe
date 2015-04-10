@@ -23,6 +23,13 @@ CLevel::~CLevel()
         mTacks.pop_front();
         SAFE_DELETE(removed);
     }
+    
+    while (!mToes.empty())
+    {
+        CToe *removed = mToes.front();
+        mToes.pop_front();
+        SAFE_DELETE(removed);
+    }
 }
 
 void CLevel::Enter()
@@ -31,6 +38,8 @@ void CLevel::Enter()
     CTTTGame::Get()->RegisterUpdateable(this);
     
     CTTTGame::Get()->SetGameState(kGameStateInGame);
+    
+    SpawnToe();
 }
 
 void CLevel::Exit()
@@ -49,7 +58,7 @@ void CLevel::Update(CTime elapsedTime)
     for(CTack *tack: mTacks)
     {
         tack->Update(elapsedTime);
-        if (tack->IsInFoot() || tack->IsOutOfBounds())
+        if (tack->IsDead())
         {
             tacksToRemove.push_back(tack);
         }
@@ -60,6 +69,26 @@ void CLevel::Update(CTime elapsedTime)
         mTacks.remove(tack);
         SAFE_DELETE(tack);
     }
+    
+    mToeSpawnCooldown -= elapsedTime;
+    if (mToeSpawnCooldown <= CTime::Zero)
+    {
+        SpawnToe();
+    }
+    std::list<CToe *> toesToRemove;
+    for (CToe *toe: mToes)
+    {
+        toe->Update(elapsedTime);
+        if (toe->IsDead())
+        {
+            toesToRemove.push_back(toe);
+        }
+    }
+    for (CToe *toe: toesToRemove)
+    {
+        mToes.remove(toe);
+        SAFE_DELETE(toe);
+    }
 }
 
 void CLevel::Draw(CWindow *theWindow)
@@ -69,9 +98,24 @@ void CLevel::Draw(CWindow *theWindow)
     {
         tack->Draw(theWindow);
     }
+    for (CToe *toe: mToes)
+    {
+        toe->Draw(theWindow);
+    }
 }
 
 void CLevel::AddTack(CTack *theTack)
 {
     mTacks.push_back(theTack);
+}
+
+CVector2f CLevel::GetTickPosition()
+{
+    return mTick.GetPosition();
+}
+
+void CLevel::SpawnToe()
+{
+    mToes.push_back(new CToe());
+    mToeSpawnCooldown = CTime::Seconds(5.0f);
 }

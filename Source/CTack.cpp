@@ -74,3 +74,8 @@ bool CTack::IsOutOfBounds()
 {
     return mSprite.getPosition().y > (GameOptions::viewHeight + 256.0f);
 }
+
+bool CTack::IsDead()
+{
+    return IsInFoot() || IsOutOfBounds();
+}

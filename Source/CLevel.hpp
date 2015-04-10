@@ -13,6 +13,7 @@
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
 #include "CTick.hpp"
+#include "CToe.hpp"
 
 class CLevel : public CGameLocation, public CUpdateable, public CRenderable
 {
@@ -28,9 +29,16 @@ public:
     
     void AddTack(CTack *theTack);
     
+    CVector2f GetTickPosition();
+    
 private:
     CTick               mTick;
     std::list<CTack *>  mTacks;
+    std::list<CToe *>   mToes;
+    
+    CTime               mToeSpawnCooldown;
+    
+    void SpawnToe();
 };
 
 #endif /* defined(__TickTackToe__CLevel__) */

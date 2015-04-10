@@ -33,6 +33,7 @@ public:
     
     bool IsInFoot();
     bool IsOutOfBounds();
+    bool IsDead();
     
 private:
     CSprite     mSprite;

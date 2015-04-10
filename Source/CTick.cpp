@@ -70,6 +70,11 @@ void CTick::ReactToEvent(CEvent *theEvent)
     }
 }
 
+CVector2f CTick::GetPosition()
+{
+    return mSprite.getPosition();
+}
+
 void CTick::AquireTack()
 {
     mTack = new CTack();
