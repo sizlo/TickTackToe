@@ -43,9 +43,9 @@ void CToe::Draw(CWindow *theWindow)
 void CToe::MoveToRandomStartPoint()
 {
     CVector2f start;
-    start.x = GameOptions::viewWidth + 200.0f;
-    start.y = MathsUtilities::RandomInRange(-100.0f,
-                                            GameOptions::viewHeight - 128.0f);
+    start.x = GameOptions::viewWidth + 20.0f;
+    start.y = MathsUtilities::RandomInRange(0.0f,
+                                            GameOptions::viewHeight - 20.0f);
     
     mSprite.setPosition(start);
 }
