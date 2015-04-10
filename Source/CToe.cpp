@@ -19,25 +19,50 @@ CToe::CToe()
     MoveToRandomStartPoint();
     
     mSpeed = 50.0f;
+    
+    mDeadCooldown = CTime::Seconds(2.0f);
+    
+    mState = kNotHit;
+    mEmbeddedTack = NULL;
 }
 
 CToe::~CToe()
 {
-    
+    SAFE_DELETE(mEmbeddedTack);
 }
 
 void CToe::Update(CTime elapsedTime)
 {
-    CVector2f tickPos = CTTTGame::Get()->GetLevel()->GetTickPosition();
-    CVector2f toeToTick = tickPos - mSprite.getPosition();
-    toeToTick.Normalise();
-    CVector2f moveOffset = toeToTick * mSpeed * elapsedTime.asSeconds();
-    mSprite.move(moveOffset);
+    CVector2f tickPos, toeToTick, moveOffset;
+    
+    switch (mState)
+    {
+        case kNotHit:
+            tickPos = CTTTGame::Get()->GetLevel()->GetTickPosition();
+            toeToTick = tickPos - mSprite.getPosition();
+            toeToTick.Normalise();
+            moveOffset = toeToTick * mSpeed * elapsedTime.asSeconds();
+            mSprite.move(moveOffset);
+            break;
+            
+        case kHit:
+            mEmbeddedTack->Update(elapsedTime);
+            mDeadCooldown -= elapsedTime;
+            break;
+            
+        case kKilledTick:
+            break;
+    }
 }
 
 void CToe::Draw(CWindow *theWindow)
 {
     theWindow->DrawSprite(mSprite);
+
+    if (mState == kHit)
+    {
+        mEmbeddedTack->Draw(theWindow);
+    }
 }
 
 void CToe::MoveToRandomStartPoint()
@@ -52,5 +77,35 @@ void CToe::MoveToRandomStartPoint()
 
 bool CToe::IsDead()
 {
-    return false;
+    return mDeadCooldown <= CTime::Zero;
+}
+
+CConvexShape CToe::GetHitbox()
+{
+    float left = -45.0f * 0.25f;
+    float right = 130.0f * 0.25f;
+    float top = -50.0f * 0.25f;
+    float bottom = 50.0f * 0.25f;
+    
+    std::list<CVector2f> thePoints;
+    thePoints.push_back(CVector2f(left, top));
+    thePoints.push_back(CVector2f(right, top));
+    thePoints.push_back(CVector2f(right, bottom));
+    thePoints.push_back(CVector2f(left, bottom));
+    
+    CConvexShape theHitbox = CConvexShape(thePoints);
+    theHitbox.setPosition(mSprite.getPosition());
+    
+    return theHitbox;
+}
+
+void CToe::ReactToCollisionWithTack(CTack *theTack)
+{
+    mState = kHit;
+    mEmbeddedTack = theTack;
+}
+
+void CToe::ReactToCollisionWithTick(CTick *theTick)
+{
+    mState = kKilledTick;
 }

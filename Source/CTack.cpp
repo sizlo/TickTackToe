@@ -75,7 +75,32 @@ bool CTack::IsOutOfBounds()
     return mSprite.getPosition().y > (GameOptions::viewHeight + 256.0f);
 }
 
-bool CTack::IsDead()
+CConvexShape CTack::GetHitbox()
 {
-    return IsInFoot() || IsOutOfBounds();
+    CVector2f direction = mVelocity;
+    direction.Normalise();
+    CVector2f perpDirection;
+    perpDirection.x = direction.y;
+    perpDirection.y = -direction.x;
+    
+    CVector2f tip = mSprite.getPosition() + (direction * (244.0f * 0.25f));
+    CVector2f left = mSprite.getPosition()
+                        - (perpDirection * (14.0f * 0.25f))
+                        + (direction * (224.0f * 0.25f));
+    CVector2f right = mSprite.getPosition()
+                        + (perpDirection * (14.0f * 0.25f))
+                        + (direction * (224.0f * 0.25f));
+    
+    std::list<CVector2f> points;
+    points.push_back(tip);
+    points.push_back(left);
+    points.push_back(right);
+    CConvexShape theHitbox = CConvexShape(points);
+    
+    return theHitbox;
+}
+
+void CTack::ReactToCollisionWithToe(CToe *theToe)
+{
+    mState = kInFoot;
 }

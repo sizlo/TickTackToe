@@ -39,6 +39,8 @@ private:
     CTime               mToeSpawnCooldown;
     
     void SpawnToe();
+    void HandleCollisions();
+    void DrawHitbox(CConvexShape theHitbox, CWindow *theWindow);
 };
 
 #endif /* defined(__TickTackToe__CLevel__) */

@@ -8,7 +8,7 @@
 
 #include "CLevel.hpp"
 #include "CTTTGame.hpp"
-
+#include "DebugOptions.hpp"
 
 CLevel::CLevel()
 {
@@ -58,7 +58,7 @@ void CLevel::Update(CTime elapsedTime)
     for(CTack *tack: mTacks)
     {
         tack->Update(elapsedTime);
-        if (tack->IsDead())
+        if (tack->IsInFoot() || tack->IsOutOfBounds())
         {
             tacksToRemove.push_back(tack);
         }
@@ -67,7 +67,10 @@ void CLevel::Update(CTime elapsedTime)
     for(CTack *tack: tacksToRemove)
     {
         mTacks.remove(tack);
-        SAFE_DELETE(tack);
+        if (!tack->IsInFoot())
+        {
+            SAFE_DELETE(tack);
+        }
     }
     
     mToeSpawnCooldown -= elapsedTime;
@@ -89,6 +92,8 @@ void CLevel::Update(CTime elapsedTime)
         mToes.remove(toe);
         SAFE_DELETE(toe);
     }
+    
+    HandleCollisions();
 }
 
 void CLevel::Draw(CWindow *theWindow)
@@ -102,6 +107,21 @@ void CLevel::Draw(CWindow *theWindow)
     {
         toe->Draw(theWindow);
     }
+    
+#if TGL_DEBUG // Draw hitboxes
+    if (DebugOptions::showMouseCoords)
+    {
+        DrawHitbox(mTick.GetHitbox(), theWindow);
+        for (CTack *tack: mTacks)
+        {
+            DrawHitbox(tack->GetHitbox(), theWindow);
+        }
+        for (CToe *toe: mToes)
+        {
+            DrawHitbox(toe->GetHitbox(), theWindow);
+        }
+    }
+#endif
 }
 
 void CLevel::AddTack(CTack *theTack)
@@ -118,4 +138,38 @@ void CLevel::SpawnToe()
 {
     mToes.push_back(new CToe());
     mToeSpawnCooldown = CTime::Seconds(5.0f);
+}
+
+void CLevel::HandleCollisions()
+{
+    // Toe with tick
+    for (CToe *toe: mToes)
+    {
+        CConvexShape tickHitbox = mTick.GetHitbox();
+        if (toe->GetHitbox().IsCollidingWith(tickHitbox))
+        {
+            toe->ReactToCollisionWithTick(&mTick);
+            mTick.ReactToCollisionWithToe(toe);
+        }
+    }
+    
+    // Tack with toe
+    for (CTack *tack: mTacks)
+    {
+        for (CToe *toe: mToes)
+        {
+            CConvexShape toeHitbox = toe->GetHitbox();
+            if (tack->GetHitbox().IsCollidingWith(toeHitbox))
+            {
+                tack->ReactToCollisionWithToe(toe);
+                toe->ReactToCollisionWithTack(tack);
+            }
+        }
+    }
+}
+
+void CLevel::DrawHitbox(CConvexShape theHitbox, CWindow *theWindow)
+{
+    theHitbox.setFillColor(CColour(0, 255, 0, 64));
+    theWindow->DrawShape(theHitbox);
 }

@@ -44,6 +44,9 @@ void CTick::Update(CTime elapsedTime)
                 AquireTack();
             }
             break;
+            
+        case kSteppedOn:
+            break;
     }
 }
 
@@ -90,4 +93,18 @@ void CTick::ThrowTack(CVector2f aimVector)
     mTackCooldown = CTime::Seconds(3.0f);
     
     mState = kWaitingForTack;
+}
+
+CConvexShape CTick::GetHitbox()
+{
+    CConvexShape theHitbox = CCircleShape(222.0f * 0.25f);
+    theHitbox.setPosition(mSprite.getPosition());
+    
+    return theHitbox;
+}
+
+void CTick::ReactToCollisionWithToe(CToe *theToe)
+{
+    mState = kSteppedOn;
+    mSprite.setRotation(180.0f);
 }

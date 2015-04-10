@@ -17,7 +17,8 @@
 enum ETickState
 {
     kHasTack,
-    kWaitingForTack
+    kWaitingForTack,
+    kSteppedOn
 };
 
 class CTick : public CUpdateable, public CRenderable, public CEventListener
@@ -31,7 +32,10 @@ public:
     
     void ReactToEvent(CEvent *theEvent);
     
-    CVector2f GetPosition();
+    CVector2f       GetPosition();
+    
+    CConvexShape    GetHitbox();
+    void ReactToCollisionWithToe(CToe *theToe);
     
 private:
     CSprite     mSprite;

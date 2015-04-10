@@ -12,6 +12,16 @@
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
 
+class CTack;
+class CTick;
+
+enum EToeState
+{
+    kNotHit,
+    kHit,
+    kKilledTick
+};
+
 class CToe : public CUpdateable, public CRenderable
 {
 public:
@@ -25,9 +35,16 @@ public:
     
     bool IsDead();
     
+    CConvexShape GetHitbox();
+    void ReactToCollisionWithTack(CTack *theTack);
+    void ReactToCollisionWithTick(CTick *theTick);
+    
 private:
-    CSprite mSprite;
-    float   mSpeed;
+    CSprite     mSprite;
+    float       mSpeed;
+    EToeState   mState;
+    CTack       *mEmbeddedTack;
+    CTime       mDeadCooldown;
 };
 
 #endif /* defined(__TickTackToe__CToe__) */

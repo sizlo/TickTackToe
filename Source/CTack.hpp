@@ -12,6 +12,8 @@
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
 
+class CToe;
+
 enum ETackState
 {
     kInTicksHand,
@@ -33,7 +35,9 @@ public:
     
     bool IsInFoot();
     bool IsOutOfBounds();
-    bool IsDead();
+    
+    CConvexShape GetHitbox();
+    void ReactToCollisionWithToe(CToe *theToe);
     
 private:
     CSprite     mSprite;
