@@ -67,10 +67,11 @@ void CToe::Draw(CWindow *theWindow)
 
 void CToe::MoveToRandomStartPoint()
 {
+    static auto getRandomYPoint = MathsUtilities::GetRandomGeneratorFunctionForRange(0.0f, GameOptions::viewHeight - 20.0f);
+    
     CVector2f start;
     start.x = GameOptions::viewWidth + 20.0f;
-    start.y = MathsUtilities::RandomInRange(0.0f,
-                                            GameOptions::viewHeight - 20.0f);
+    start.y = getRandomYPoint();
     
     mSprite.setPosition(start);
 }

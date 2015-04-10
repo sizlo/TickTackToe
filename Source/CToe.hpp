@@ -11,6 +11,7 @@
 
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
+#include <random>
 
 class CTack;
 class CTick;
