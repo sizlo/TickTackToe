@@ -11,6 +11,7 @@
 
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
+#include "CAnimatedSprite.hpp"
 #include <random>
 
 class CTack;
@@ -41,11 +42,11 @@ public:
     void ReactToCollisionWithTick(CTick *theTick);
     
 private:
-    CSprite     mSprite;
-    float       mSpeed;
-    EToeState   mState;
-    CTack       *mEmbeddedTack;
-    CTime       mDeadCooldown;
+    CAnimatedSprite     mSprite;
+    float               mSpeed;
+    EToeState           mState;
+    CTack               *mEmbeddedTack;
+    CTime               mDeadCooldown;
 };
 
 #endif /* defined(__TickTackToe__CToe__) */

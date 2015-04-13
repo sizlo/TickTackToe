@@ -18,6 +18,7 @@
 		2207D2C91AD6B45700A7D8AC /* Tack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2C81AD6B45700A7D8AC /* Tack.png */; };
 		2207D2DF1AD748B500A7D8AC /* CToe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D2DD1AD748B500A7D8AC /* CToe.cpp */; };
 		2207D2E11AD74D0F00A7D8AC /* Toe.png in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2E01AD74D0F00A7D8AC /* Toe.png */; };
+		2207D2F31ADC375300A7D8AC /* ToeAnim.png in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2F21ADC375300A7D8AC /* ToeAnim.png */; };
 		223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB18D1AD587940084D6A3 /* CTTTGame.cpp */; };
 		223AB1941AD588C90084D6A3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB1921AD588C90084D6A3 /* Main.cpp */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		2207D2DD1AD748B500A7D8AC /* CToe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CToe.cpp; path = Source/CToe.cpp; sourceTree = SOURCE_ROOT; };
 		2207D2DE1AD748B500A7D8AC /* CToe.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CToe.hpp; path = Source/CToe.hpp; sourceTree = SOURCE_ROOT; };
 		2207D2E01AD74D0F00A7D8AC /* Toe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Toe.png; path = Data/Toe.png; sourceTree = SOURCE_ROOT; };
+		2207D2F21ADC375300A7D8AC /* ToeAnim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToeAnim.png; path = Data/ToeAnim.png; sourceTree = SOURCE_ROOT; };
 		223AB1471AD5863C0084D6A3 /* TickTackToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TickTackToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		223AB17F1AD586FD0084D6A3 /* TimGameLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TimGameLib.xcodeproj; path = ../TimGameLib/TimGameLib.xcodeproj; sourceTree = "<group>"; };
 		223AB18D1AD587940084D6A3 /* CTTTGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CTTTGame.cpp; path = Source/CTTTGame.cpp; sourceTree = SOURCE_ROOT; };
@@ -86,6 +88,7 @@
 		2207D2B51AD5A7F600A7D8AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2207D2F21ADC375300A7D8AC /* ToeAnim.png */,
 				2207D2E01AD74D0F00A7D8AC /* Toe.png */,
 				2207D2C81AD6B45700A7D8AC /* Tack.png */,
 				2207D2C31AD6A9AB00A7D8AC /* Tick.png */,
@@ -238,6 +241,7 @@
 				2207D2C41AD6A9AB00A7D8AC /* Tick.png in Resources */,
 				2207D2B81AD5A80B00A7D8AC /* config.xml in Resources */,
 				2207D2E11AD74D0F00A7D8AC /* Toe.png in Resources */,
+				2207D2F31ADC375300A7D8AC /* ToeAnim.png in Resources */,
 				2207D2C91AD6B45700A7D8AC /* Tack.png in Resources */,
 				2207D2B91AD5A80B00A7D8AC /* sansation.ttf in Resources */,
 			);

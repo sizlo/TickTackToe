@@ -11,8 +11,18 @@
 #include "CTTTGame.hpp"
 
 CToe::CToe()
+:   mSprite("ToeAnim.png")
 {
-    mSprite = CSprite("Toe.png");
+    mSprite.AddFrame(CIntRect(0, 0, 512, 512), CTime::Seconds(1.0f));
+    mSprite.AddFrame(CIntRect(512, 0, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(1024, 0, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(512, 0, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(0, 0, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(512, 512, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(1024, 512, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(512, 512, 512, 512), CTime::Seconds(0.07f));
+    mSprite.Start();
+    
     mSprite.setOrigin(75.0f, 400.0f);
     mSprite.setScale(0.25f, 0.25f);
     
@@ -42,7 +52,9 @@ void CToe::Update(CTime elapsedTime)
             toeToTick = tickPos - mSprite.getPosition();
             toeToTick.Normalise();
             moveOffset = toeToTick * mSpeed * elapsedTime.asSeconds();
+            if (!CKeyboard::isKeyPressed(CKeyboard::P))
             mSprite.move(moveOffset);
+            mSprite.Update(elapsedTime);
             break;
             
         case kHit:
