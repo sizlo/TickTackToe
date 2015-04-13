@@ -52,7 +52,6 @@ void CToe::Update(CTime elapsedTime)
             toeToTick = tickPos - mSprite.getPosition();
             toeToTick.Normalise();
             moveOffset = toeToTick * mSpeed * elapsedTime.asSeconds();
-            if (!CKeyboard::isKeyPressed(CKeyboard::P))
             mSprite.move(moveOffset);
             mSprite.Update(elapsedTime);
             break;
