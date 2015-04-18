@@ -13,14 +13,14 @@
 CToe::CToe()
 :   mSprite("ToeAnim.png")
 {
-    mSprite.AddFrame(CIntRect(0, 0, 512, 512), CTime::Seconds(1.0f));
-    mSprite.AddFrame(CIntRect(512, 0, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(1024, 0, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(512, 0, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(0, 0, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(512, 512, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(1024, 512, 512, 512), CTime::Seconds(0.07f));
-    mSprite.AddFrame(CIntRect(512, 512, 512, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(10, 0, 502, 512), CTime::Seconds(1.0f));
+    mSprite.AddFrame(CIntRect(522, 0, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(1034, 0, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(522, 0, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(10, 0, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(522, 512, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(1034, 512, 502, 512), CTime::Seconds(0.07f));
+    mSprite.AddFrame(CIntRect(522, 512, 502, 512), CTime::Seconds(0.07f));
     mSprite.Start();
     
     mSprite.setOrigin(75.0f, 400.0f);
