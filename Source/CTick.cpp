@@ -95,7 +95,7 @@ void CTick::Draw(CWindow *theWindow)
         {
             CCircleShape c = CCircleShape(2.5f);
             c.setPosition(p);
-            c.setFillColor(CColour::Black);
+            c.setFillColor(CColour::White);
             theWindow->DrawShape(c);
         }
     }

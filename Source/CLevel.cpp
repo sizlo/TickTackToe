@@ -14,7 +14,8 @@
 
 CLevel::CLevel()
 {
-    
+    mBackground = CSprite("Room.png");
+    mBackground.setScale(0.75f, 0.75f);
 }
 
 CLevel::~CLevel()
@@ -92,7 +93,8 @@ void CLevel::Update(CTime elapsedTime)
 
 void CLevel::Draw(CWindow *theWindow)
 {
-    mTick.Draw(theWindow);
+    theWindow->DrawSprite(mBackground);
+    
     for(CTack *tack: mTacks)
     {
         tack->Draw(theWindow);
@@ -101,6 +103,8 @@ void CLevel::Draw(CWindow *theWindow)
     {
         toe->Draw(theWindow);
     }
+    
+    mTick.Draw(theWindow);
     
 #if TGL_DEBUG // Draw hitboxes
     if (DebugOptions::showMouseCoords)

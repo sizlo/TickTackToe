@@ -22,6 +22,7 @@
 		223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB18D1AD587940084D6A3 /* CTTTGame.cpp */; };
 		223AB1941AD588C90084D6A3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB1921AD588C90084D6A3 /* Main.cpp */; };
 		2261B6221AE402EA0013D5CA /* TTTOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2261B6201AE402EA0013D5CA /* TTTOptions.cpp */; };
+		2261B6241AE40DEE0013D5CA /* Room.png in Resources */ = {isa = PBXBuildFile; fileRef = 2261B6231AE40DEE0013D5CA /* Room.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		223AB1921AD588C90084D6A3 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = Source/Main.cpp; sourceTree = SOURCE_ROOT; };
 		2261B6201AE402EA0013D5CA /* TTTOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTOptions.cpp; path = Source/TTTOptions.cpp; sourceTree = SOURCE_ROOT; };
 		2261B6211AE402EA0013D5CA /* TTTOptions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TTTOptions.hpp; path = Source/TTTOptions.hpp; sourceTree = SOURCE_ROOT; };
+		2261B6231AE40DEE0013D5CA /* Room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room.png; path = Data/Room.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		2207D2B51AD5A7F600A7D8AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2261B6231AE40DEE0013D5CA /* Room.png */,
 				2207D2F21ADC375300A7D8AC /* ToeAnim.png */,
 				2207D2E01AD74D0F00A7D8AC /* Toe.png */,
 				2207D2C81AD6B45700A7D8AC /* Tack.png */,
@@ -246,6 +249,7 @@
 				2207D2C41AD6A9AB00A7D8AC /* Tick.png in Resources */,
 				2207D2B81AD5A80B00A7D8AC /* config.xml in Resources */,
 				2207D2E11AD74D0F00A7D8AC /* Toe.png in Resources */,
+				2261B6241AE40DEE0013D5CA /* Room.png in Resources */,
 				2207D2F31ADC375300A7D8AC /* ToeAnim.png in Resources */,
 				2207D2C91AD6B45700A7D8AC /* Tack.png in Resources */,
 				2207D2B91AD5A80B00A7D8AC /* sansation.ttf in Resources */,

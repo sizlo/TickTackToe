@@ -42,6 +42,8 @@ private:
     
     CTime               mToeSpawnCooldown;
     
+    CSprite mBackground;
+    
     void StartLevel();
     void DeleteEntities();
     void SpawnToe();
