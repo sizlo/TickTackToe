@@ -8,6 +8,7 @@
 
 #include "CTack.hpp"
 #include "CTTTGame.hpp"
+#include "TTTOptions.hpp"
 
 CTack::CTack()
 {
@@ -36,7 +37,7 @@ void CTack::Update(CTime elapsedTime)
             
         case kFlying:
             // Adjust velocity for gravity and move
-            mVelocity += (CVector2f(0.0f, 250.0f) * elapsedTime.asSeconds());
+            mVelocity += (TTTOptions::gravity * elapsedTime.asSeconds());
             mSprite.move(mVelocity * elapsedTime.asSeconds());
             
             // Adjust sprite rotation based on velocity
@@ -63,6 +64,11 @@ void CTack::Throw(CVector2f aimVector)
 void CTack::SetPosition(CVector2f thePosition)
 {
     mSprite.setPosition(thePosition);
+}
+
+CVector2f CTack::GetPosition()
+{
+    return mSprite.getPosition();
 }
 
 bool CTack::IsInFoot()

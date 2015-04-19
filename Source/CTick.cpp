@@ -9,6 +9,7 @@
 #include "CTick.hpp"
 #include "CMessageBroadcaster.hpp"
 #include "SystemUtilities.hpp"
+#include "TTTOptions.hpp"
 
 CTick::CTick()
 : mTack(NULL)
@@ -30,7 +31,6 @@ CTick::~CTick()
 
 void CTick::Init()
 {
-    mInputState = kMouseUp;
     mSprite.setRotation(0.0f);
     SAFE_DELETE(mTack);
     AquireTack();
@@ -38,8 +38,6 @@ void CTick::Init()
 
 void CTick::Update(CTime elapsedTime)
 {
-    CVector2f p;
-    
     switch (mState)
     {
         case kHasTack:
@@ -57,6 +55,30 @@ void CTick::Update(CTime elapsedTime)
         case kSteppedOn:
             break;
     }
+    
+    if (CMouse::isButtonPressed(CMouse::Left) && mState == kHasTack)
+    {
+        mThrowPathPoints.clear();
+        CVector2f pathPosition = mTack->GetPosition();
+        CVector2f velocity = SystemUtilities::GetMousePosition() - mMouseDragStartPosition;
+        CTime dummyUpdateTime = CTime::Seconds(0.016f); // 60 fps
+       
+        CVector2f lastPosition = pathPosition;
+        while (pathPosition.y < (GameOptions::viewHeight + 256.0f))
+        {
+            velocity += TTTOptions::gravity * dummyUpdateTime.asSeconds();
+            pathPosition += velocity * dummyUpdateTime.asSeconds();
+            CVector2f distance = pathPosition - lastPosition;
+            if (distance.GetMagnitude() > 50.0f)
+            {
+                CVector2f direction = velocity;
+                direction.Normalise();
+                mThrowPathPoints.push_back(pathPosition + direction * (244.0f * 0.25f));
+                lastPosition = pathPosition;
+            }
+            
+        }
+    }
 }
 
 void CTick::Draw(CWindow *theWindow)
@@ -65,6 +87,17 @@ void CTick::Draw(CWindow *theWindow)
     if (mState == kHasTack)
     {
         mTack->Draw(theWindow);
+    }
+    
+    if (CMouse::isButtonPressed(CMouse::Left) && mState == kHasTack)
+    {
+        for (CVector2f p: mThrowPathPoints)
+        {
+            CCircleShape c = CCircleShape(2.5f);
+            c.setPosition(p);
+            c.setFillColor(CColour::Black);
+            theWindow->DrawShape(c);
+        }
     }
 }
 
@@ -75,7 +108,6 @@ bool CTick::HandleMessage(CEvent theEvent)
         case CEvent::MouseButtonPressed:
             if (theEvent.mouseButton.button == CMouse::Left)
             {
-                mInputState = kMouseDown;
                 CVector2i windowPosition = CVector2i(theEvent.mouseButton.x, theEvent.mouseButton.y);
                 mMouseDragStartPosition = SystemUtilities::GetViewPosition(windowPosition);
             }
@@ -84,7 +116,6 @@ bool CTick::HandleMessage(CEvent theEvent)
         case CEvent::MouseButtonReleased:
             if (theEvent.mouseButton.button == CMouse::Left)
             {
-                mInputState = kMouseUp;
                 CVector2i windowPosition = CVector2i(theEvent.mouseButton.x, theEvent.mouseButton.y);
                 CVector2f viewPosition = SystemUtilities::GetViewPosition(windowPosition);
                 

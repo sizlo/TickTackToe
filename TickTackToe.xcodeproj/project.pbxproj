@@ -21,6 +21,7 @@
 		2207D2F31ADC375300A7D8AC /* ToeAnim.png in Resources */ = {isa = PBXBuildFile; fileRef = 2207D2F21ADC375300A7D8AC /* ToeAnim.png */; };
 		223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB18D1AD587940084D6A3 /* CTTTGame.cpp */; };
 		223AB1941AD588C90084D6A3 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223AB1921AD588C90084D6A3 /* Main.cpp */; };
+		2261B6221AE402EA0013D5CA /* TTTOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2261B6201AE402EA0013D5CA /* TTTOptions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		223AB18E1AD587940084D6A3 /* CTTTGame.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CTTTGame.hpp; path = Source/CTTTGame.hpp; sourceTree = SOURCE_ROOT; };
 		223AB1901AD587E50084D6A3 /* TickTackToe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "TickTackToe-Info.plist"; path = "MacResources/TickTackToe-Info.plist"; sourceTree = SOURCE_ROOT; };
 		223AB1921AD588C90084D6A3 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = Source/Main.cpp; sourceTree = SOURCE_ROOT; };
+		2261B6201AE402EA0013D5CA /* TTTOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTOptions.cpp; path = Source/TTTOptions.cpp; sourceTree = SOURCE_ROOT; };
+		2261B6211AE402EA0013D5CA /* TTTOptions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TTTOptions.hpp; path = Source/TTTOptions.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 				2207D2C61AD6ADAA00A7D8AC /* CTack.hpp */,
 				2207D2DD1AD748B500A7D8AC /* CToe.cpp */,
 				2207D2DE1AD748B500A7D8AC /* CToe.hpp */,
+				2261B6201AE402EA0013D5CA /* TTTOptions.cpp */,
+				2261B6211AE402EA0013D5CA /* TTTOptions.hpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				2207D2C71AD6ADAA00A7D8AC /* CTack.cpp in Sources */,
 				223AB1941AD588C90084D6A3 /* Main.cpp in Sources */,
 				223AB18F1AD587940084D6A3 /* CTTTGame.cpp in Sources */,
+				2261B6221AE402EA0013D5CA /* TTTOptions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,9 +51,10 @@ private:
     CSprite     mSprite;
     CTack       *mTack;
     ETickState  mState;
-    EInputState mInputState;
     CVector2f   mMouseDragStartPosition;
     CTime       mTackCooldown;
+    
+    std::list<CVector2f> mThrowPathPoints;
     
     void AquireTack();
     void ThrowTack(CVector2f aimVector);

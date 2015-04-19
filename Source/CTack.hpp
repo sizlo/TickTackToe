@@ -30,8 +30,9 @@ public:
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
     
-    void Throw(CVector2f aimVector);
-    void SetPosition(CVector2f thePosition);
+    void        Throw(CVector2f aimVector);
+    void        SetPosition(CVector2f thePosition);
+    CVector2f   GetPosition();
     
     bool IsInFoot();
     bool IsOutOfBounds();
