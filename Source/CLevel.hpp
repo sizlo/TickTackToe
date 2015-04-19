@@ -18,7 +18,7 @@
 class CLevel :  public CGameLocation,
                 public CUpdateable,
                 public CRenderable,
-                public CEventListener
+                public CMessageListener<CEvent>
 {
 public:
     CLevel();
@@ -29,7 +29,7 @@ public:
     
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
-    void ReactToEvent(CEvent *theEvent);
+    bool HandleMessage(CEvent theEvent);
     
     void AddTack(CTack *theTack);
     

@@ -11,7 +11,7 @@
 
 #include "CUpdateable.hpp"
 #include "CRenderable.hpp"
-#include "CEventListener.hpp"
+#include "CMessageListener.hpp"
 #include "CTack.hpp"
 
 enum ETickState
@@ -21,7 +21,15 @@ enum ETickState
     kSteppedOn
 };
 
-class CTick : public CUpdateable, public CRenderable, public CEventListener
+enum EInputState
+{
+    kMouseDown,
+    kMouseUp
+};
+
+class CTick :   public CUpdateable,
+                public CRenderable,
+                public CMessageListener<CEvent>
 {
 public:
     CTick();
@@ -32,7 +40,7 @@ public:
     void Update(CTime elapsedTime);
     void Draw(CWindow *theWindow);
     
-    void ReactToEvent(CEvent *theEvent);
+    bool HandleMessage(CEvent theEvent);
     
     CVector2f       GetPosition();
     
@@ -43,6 +51,8 @@ private:
     CSprite     mSprite;
     CTack       *mTack;
     ETickState  mState;
+    EInputState mInputState;
+    CVector2f   mMouseDragStartPosition;
     CTime       mTackCooldown;
     
     void AquireTack();

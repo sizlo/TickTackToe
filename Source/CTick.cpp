@@ -7,13 +7,14 @@
 //
 
 #include "CTick.hpp"
+#include "CMessageBroadcaster.hpp"
 #include "SystemUtilities.hpp"
 
 CTick::CTick()
 : mTack(NULL)
 {
     // Listen to events
-    SystemUtilities::SubscribeToEvents(this);
+    CMessageBroadcaster<CEvent>::Subscribe(this);
     
     mSprite = CSprite("Tick.png");
     mSprite.setOrigin(256.0f, 256.0f);
@@ -23,12 +24,13 @@ CTick::CTick()
 
 CTick::~CTick()
 {
-    SystemUtilities::UnsubscribeToEvents(this);
+    CMessageBroadcaster<CEvent>::Unsubscribe(this);
     SAFE_DELETE(mTack);
 }
 
 void CTick::Init()
 {
+    mInputState = kMouseUp;
     mSprite.setRotation(0.0f);
     SAFE_DELETE(mTack);
     AquireTack();
@@ -66,18 +68,37 @@ void CTick::Draw(CWindow *theWindow)
     }
 }
 
-void CTick::ReactToEvent(CEvent *theEvent)
+bool CTick::HandleMessage(CEvent theEvent)
 {
-    if (theEvent->IsExtra()
-        && theEvent->extraType == CEvent::MouseDrag
-        && theEvent->mouseDrag.button == CMouse::Left
-        && mState == kHasTack)
+    switch (theEvent.type)
     {
-        CVector2f start = theEvent->mouseDrag.pressLocation;
-        CVector2f finish = theEvent->mouseDrag.releaseLocation;
-        CVector2f startToFinish = finish - start;
-        ThrowTack(startToFinish);
+        case CEvent::MouseButtonPressed:
+            if (theEvent.mouseButton.button == CMouse::Left)
+            {
+                mInputState = kMouseDown;
+                CVector2i windowPosition = CVector2i(theEvent.mouseButton.x, theEvent.mouseButton.y);
+                mMouseDragStartPosition = SystemUtilities::GetViewPosition(windowPosition);
+            }
+            break;
+            
+        case CEvent::MouseButtonReleased:
+            if (theEvent.mouseButton.button == CMouse::Left)
+            {
+                mInputState = kMouseUp;
+                CVector2i windowPosition = CVector2i(theEvent.mouseButton.x, theEvent.mouseButton.y);
+                CVector2f viewPosition = SystemUtilities::GetViewPosition(windowPosition);
+                
+                CVector2f aimVector = viewPosition - mMouseDragStartPosition;
+                ThrowTack(aimVector);
+            }
+            break;
+            
+        default:
+            // Do nothing
+            break;
     }
+    
+    return false;
 }
 
 CVector2f CTick::GetPosition()
@@ -94,12 +115,15 @@ void CTick::AquireTack()
 
 void CTick::ThrowTack(CVector2f aimVector)
 {
-    mTack->Throw(aimVector);
-    mTack = NULL;
-    
-    mTackCooldown = CTime::Seconds(3.0f);
-    
-    mState = kWaitingForTack;
+    if (mState == kHasTack)
+    {
+        mTack->Throw(aimVector);
+        mTack = NULL;
+        
+        mTackCooldown = CTime::Seconds(3.0f);
+        
+        mState = kWaitingForTack;
+    }
 }
 
 CConvexShape CTick::GetHitbox()

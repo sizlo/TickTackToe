@@ -9,7 +9,8 @@
 #include "CLevel.hpp"
 #include "CTTTGame.hpp"
 #include "DebugOptions.hpp"
-#include "SystemUtilities.hpp"
+#include "CMessageBroadcaster.hpp"
+
 
 CLevel::CLevel()
 {
@@ -28,7 +29,7 @@ void CLevel::Enter()
     
     CTTTGame::Get()->SetGameState(kGameStateInGame);
     
-    SystemUtilities::SubscribeToEvents(this);
+    CMessageBroadcaster<CEvent>::Subscribe(this);
     
     StartLevel();
 }
@@ -40,7 +41,7 @@ void CLevel::Exit()
     
     CTTTGame::Get()->UnsetGameState(kGameStateInGame);
     
-    SystemUtilities::UnsubscribeToEvents(this);
+    CMessageBroadcaster<CEvent>::Unsubscribe(this);
 }
 
 void CLevel::Update(CTime elapsedTime)
@@ -117,15 +118,17 @@ void CLevel::Draw(CWindow *theWindow)
 #endif
 }
 
-void CLevel::ReactToEvent(CEvent *theEvent)
+bool CLevel::HandleMessage(CEvent theEvent)
 {
-    if (theEvent->type == CEvent::KeyPressed)
+    if (theEvent.type == CEvent::KeyPressed)
     {
-        if (theEvent->key.code == CKeyboard::R)
+        if (theEvent.key.code == CKeyboard::R)
         {
             StartLevel();
         }
     }
+    
+    return false;
 }
 
 void CLevel::AddTack(CTack *theTack)
