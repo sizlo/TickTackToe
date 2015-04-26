@@ -23,8 +23,9 @@ CToe::CToe()
     mSprite.AddFrame(CIntRect(522, 512, 502, 512), CTime::Seconds(0.07f));
     mSprite.Start();
     
-    mSprite.setOrigin(75.0f, 400.0f);
     mSprite.setScale(0.25f, 0.25f);
+    
+    SetupHitboxes();
     
     MoveToRandomStartPoint();
     
@@ -94,21 +95,9 @@ bool CToe::IsDead()
 
 CConvexShape CToe::GetHitbox()
 {
-    float left = -45.0f * 0.25f;
-    float right = 130.0f * 0.25f;
-    float top = -50.0f * 0.25f;
-    float bottom = 50.0f * 0.25f;
-    
-    std::list<CVector2f> thePoints;
-    thePoints.push_back(CVector2f(left, top));
-    thePoints.push_back(CVector2f(right, top));
-    thePoints.push_back(CVector2f(right, bottom));
-    thePoints.push_back(CVector2f(left, bottom));
-    
-    CConvexShape theHitbox = CConvexShape(thePoints);
-    theHitbox.setPosition(mSprite.getPosition());
-    
-    return theHitbox;
+    CConvexShape currentBox = mHitboxes[mSprite.GetCurrentFrameIndex()];
+    currentBox.setPosition(mSprite.getPosition());
+    return currentBox;
 }
 
 void CToe::ReactToCollisionWithTack(CTack *theTack)
@@ -120,4 +109,57 @@ void CToe::ReactToCollisionWithTack(CTack *theTack)
 void CToe::ReactToCollisionWithTick(CTick *theTick)
 {
     mState = kKilledTick;
+}
+
+void CToe::SetupHitboxes()
+{
+    CConvexShape midBox = CConvexShape(5);
+    midBox.setPoint(0, CVector2f(30.0f, 350.0f));
+    midBox.setPoint(1, CVector2f(200.0f, 370.0f));
+    midBox.setPoint(2, CVector2f(200.0f, 450.0f));
+    midBox.setPoint(3, CVector2f(50.0f, 460.0f));
+    midBox.setPoint(4, CVector2f(20.0f, 400.0f));
+    
+    CConvexShape up1Box = CConvexShape(5);
+    up1Box.setPoint(0, CVector2f(40.0f, 330.0f));
+    up1Box.setPoint(1, CVector2f(200.0f, 370.0f));
+    up1Box.setPoint(2, CVector2f(200.0f, 445.0f));
+    up1Box.setPoint(3, CVector2f(40.0f, 440.0f));
+    up1Box.setPoint(4, CVector2f(20.0f, 380.0f));
+    
+    CConvexShape up2Box = CConvexShape(5);
+    up2Box.setPoint(0, CVector2f(60.0f, 300.0f));
+    up2Box.setPoint(1, CVector2f(215.0f, 375.0f));
+    up2Box.setPoint(2, CVector2f(215.0f, 445.0f));
+    up2Box.setPoint(3, CVector2f(40.0f, 400.0f));
+    up2Box.setPoint(4, CVector2f(30.0f, 350.0f));
+    
+    CConvexShape down1Box = CConvexShape(5);
+    down1Box.setPoint(0, CVector2f(25.0f, 380.0f));
+    down1Box.setPoint(1, CVector2f(200.0f, 370.0f));
+    down1Box.setPoint(2, CVector2f(200.0f, 440.0f));
+    down1Box.setPoint(3, CVector2f(50.0f, 480.0f));
+    down1Box.setPoint(4, CVector2f(20.0f, 425.0f));
+    
+    CConvexShape down2Box = CConvexShape(5);
+    down2Box.setPoint(0, CVector2f(25.0f, 400.0f));
+    down2Box.setPoint(1, CVector2f(200.0f, 370.0f));
+    down2Box.setPoint(2, CVector2f(200.0f, 445.0f));
+    down2Box.setPoint(3, CVector2f(65.0f, 495.0f));
+    down2Box.setPoint(4, CVector2f(25.0f, 450.0f));
+    
+    midBox.setScale(0.25f, 0.25f);
+    up1Box.setScale(0.25f, 0.25f);
+    up2Box.setScale(0.25f, 0.25f);
+    down1Box.setScale(0.25f, 0.25f);
+    down2Box.setScale(0.25f, 0.25f);
+    
+    mHitboxes[kMiddle] = midBox;
+    mHitboxes[kHigherUpwards] = up1Box;
+    mHitboxes[kHighest] = up2Box;
+    mHitboxes[kHigherDownwards] = up1Box;
+    mHitboxes[kMiddleAgain] = midBox;
+    mHitboxes[kLowerDownwards] = down1Box;
+    mHitboxes[kLowest] = down2Box;
+    mHitboxes[kLowerUpwards] = down1Box;
 }

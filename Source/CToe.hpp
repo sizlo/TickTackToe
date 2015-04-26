@@ -24,6 +24,19 @@ enum EToeState
     kKilledTick
 };
 
+enum EToeWiggleState
+{
+    kMiddle,
+    kHigherUpwards,
+    kHighest,
+    kHigherDownwards,
+    kMiddleAgain,
+    kLowerDownwards,
+    kLowest,
+    kLowerUpwards,
+    kWiggleStateCount
+};
+
 class CToe : public CUpdateable, public CRenderable
 {
 public:
@@ -42,11 +55,14 @@ public:
     void ReactToCollisionWithTick(CTick *theTick);
     
 private:
+    void SetupHitboxes();
+    
     CAnimatedSprite     mSprite;
     float               mSpeed;
     EToeState           mState;
     CTack               *mEmbeddedTack;
     CTime               mDeadCooldown;
+    CConvexShape        mHitboxes[kWiggleStateCount];
 };
 
 #endif /* defined(__TickTackToe__CToe__) */
