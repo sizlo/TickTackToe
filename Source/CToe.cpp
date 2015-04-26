@@ -23,6 +23,7 @@ CToe::CToe()
     mSprite.AddFrame(CIntRect(522, 512, 502, 512), CTime::Seconds(0.07f));
     mSprite.Start();
     
+    mSprite.setOrigin(75.0f, 400.0f);
     mSprite.setScale(0.25f, 0.25f);
     
     SetupHitboxes();
@@ -79,7 +80,7 @@ void CToe::Draw(CWindow *theWindow)
 
 void CToe::MoveToRandomStartPoint()
 {
-    static auto getRandomYPoint = MathsUtilities::GetRandomGeneratorFunctionForRange(0.0f, GameOptions::viewHeight - 20.0f);
+    static auto getRandomYPoint = MathsUtilities::GetRandomGeneratorFunctionForRange(0.0f, GameOptions::viewHeight - 128.0f);
     
     CVector2f start;
     start.x = GameOptions::viewWidth + 20.0f;
@@ -97,6 +98,7 @@ CConvexShape CToe::GetHitbox()
 {
     CConvexShape currentBox = mHitboxes[mSprite.GetCurrentFrameIndex()];
     currentBox.setPosition(mSprite.getPosition());
+    currentBox.move(-mSprite.getOrigin() * 0.25f);
     return currentBox;
 }
 
