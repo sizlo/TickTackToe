@@ -12,21 +12,12 @@
 #include "CGame.hpp"
 #include "CLevel.hpp"
 
-enum ETTTGameLocation
-{
-    kGameLocationLevel = kGameLocationDummy + 1
-};
-
 class CTTTGame : public CGame
 {
 public:
     static CTTTGame * Get();
     
     CTTTGame();
-    
-    // Go to a game location
-    virtual void GoToLocation(int theLocation,
-                              std::string filename = std::string());
     
     CLevel * GetLevel();
 };
